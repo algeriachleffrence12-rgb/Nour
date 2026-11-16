@@ -1,6 +1,6 @@
 {
   "name": "salma",
-  "short_name": "salma",
+  "short_name": "salma","description": "Nour coloring books",
   "start_url": "/Nour/",
   "display": "standalone",
   "background_color": "#ffffff",
