@@ -1,15 +1,33 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head><link rel="manifest" href="manifest.json">
-<meta charset="UTF-8">
-<title>نور</title>
-<style>
-body{text-align:center;font-family:Arial;background:#fff8f0;padding:40px}
-h1{color:#ff7a9e}
-</style>
-</head>
-<body>
-<h1>أهلا بيك في موقع نور</h1>
-<p>هنا راح نحطو كتب التلوين</p>
+},
+    gatePay: function () { go('gate', { a: 3 + rnd(6), b: 4 + rnd(6), next: 'pay' }); },
+    gateGo: function () {
+      var val = parseInt((document.getElementById('gateIn') || {}).value, 10);
+      var nx = V.next;
+      if (val === V.a + V.b) { if (nx === 'pay') { go('paywall', {}); buy(); } else go('parents', {}); }
+      else { toast(t('gateBad')); go('gate', { a: 3 + rnd(6), b: 4 + rnd(6), next: nx }); }
+    },
+    restore: function () { restorePurchase(true); },
+    toggleSound: function () { S.sound = !S.sound; save(); render(); },
+    lang: function (v) { S.lang = v; save(); render(); },
+    reset: function (v, el) {
+      if (!V.sure) { V.sure = true; toast(t('resetSure')); return; }
+      var lang = S.lang; S = defaults(); S.lang = lang; checkDay(); save(); toast(t('resetDone')); go('home');
+    }
+  };
+
+  app.addEventListener('click', function (e) {
+    var el = e.target.closest ? e.target.closest('[data-act]') : null;
+    if (!el || !ACT[el.getAttribute('data-act')]) return;
+    ACT[el.getAttribute('data-act')](el.getAttribute('data-v'), el);
+  });
+
+  window.__nour = { W: function (n) { return levelWorld(n); }, S: function () { return S; }, V: function () { return V; }, LET: LET };
+  checkDay(); applyLang(); render(); restorePurchase(false);
+  if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
+    window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+  }
+})();
+</script>
 </body>
 </html>
+>
