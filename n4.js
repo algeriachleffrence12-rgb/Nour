@@ -131,4 +131,3 @@
     lessonNext: function () {
       if (V.step + 1 < V.letters.length) {
 //END
-      

@@ -130,4 +130,3 @@
       var up = V.up.indexOf(k) !== -1, dn = V.matched.indexOf(c.key) !== -1;
       var face = (up || dn) ? c.html : '❓';
 //END
-        

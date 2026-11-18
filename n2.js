@@ -98,4 +98,3 @@
       if (!arVoice && !voiceWarned) { voiceWarned = true; toast(t('noVoice')); }
       speechSynthesis.cancel();
 //END
-        

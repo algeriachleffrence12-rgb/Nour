@@ -59,7 +59,7 @@
   var TX = {
     fr: {
       world: ['Monde 1 · Les lettres', 'Monde 2 · Les voyelles', 'Monde 3 · Les mots', 'Monde 4 · Les couleurs', 'Monde 5 · Les animaux', 'Monde 6 · Fruits et légumes', 'Monde 7 · La maison et la famille', 'Monde 8 · Les chiffres'], quizSL: 'Écoute et trouve la syllabe', quizST: 'Quelle syllabe lit-on :', quizW: 'Quel est le mot de cette image ?', vowelsT: 'Lettre + voyelle = syllabe', memS: 'Trouve les paires : syllabe et sa lecture', memW: 'Trouve les paires : mot et image', wordT: 'Le mot',
-      payTitle: 'Débloque toute l’aventure', payText: 'Les {f} premiers niveaux sont gratuits. Un seul achat, une seule fois, débloque les {n} autres niveaux : voyelles, mots, couleurs, animaux, fruits, maison et chiffres. Pas d’abonnement, pas de publicité.', payBtn: 'Débloquer (achat unique)', payNo: 'L’achat est disponible dans l’application installée depuis Google Play.', payOk: 'Merci ! Tout est débloqué 🎉', payFail: 'Achat annulé.', pa,
+      payTitle: 'Débloque toute l’aventure', payText: 'Les {f} premiers niveaux sont gratuits. Un seul achat, une seule fois, débloque les {n} autres niveaux : voyelles, mots, couleurs, animaux, fruits, maison et chiffres. Pas d’abonnement, pas de publicité.', payBtn: 'Débloquer (achat unique)', payNo: 'L’achat est disponible dans l’application installée depuis Google Play.', payOk: 'Merci ! Tout est débloqué 🎉', payFail: 'Achat annulé.', payRestore: 'Restaurer mon achat', payNone: 'Aucun achat à restaurer.', payAsk: 'Un adulte doit confirmer l’achat.', premiumOn: 'Version complète ✅', quizQ: 'Quel est ce mot ?',
       tag: 'Bonjour mon champion ! La maîtresse parle français, les lettres parlent arabe ❤️',
       play: 'Jouer', review: 'Révision', wheel: 'La roue', album: 'Album', shop: 'Boutique', parents: 'Parents', back: 'Retour',
       level: 'Niveau {n}', lessonOf: 'Leçon : lettre {a} sur {b}', next: 'Suivant', listen: 'Écouter', forms: 'Les 4 formes',
@@ -72,4 +72,3 @@
       reset: 'Effacer la progression', resetSure: 'Appuie encore pour confirmer : tout sera effacé.', resetDone: 'Progression effacée.',
       privacy: 'Nour ne collecte aucune donnée, n’affiche aucune publicité et n’envoie rien sur Internet. La progression reste sur cet appareil.',
 //END
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
