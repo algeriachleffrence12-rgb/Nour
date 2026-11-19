@@ -1,0 +1,72 @@
+name: Build AAB
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Build Android app
+        run: |
+          set -e
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null || true
+          npm install -g @bubblewrap/cli
+          mkdir -p ~/.bubblewrap
+          echo "{\"jdkPath\":\"$JAVA_HOME\",\"androidSdkPath\":\"$ANDROID_HOME\"}" > ~/.bubblewrap/config.json
+          mkdir -p out && cd out
+          PASS=$(openssl rand -hex 12)
+          keytool -genkeypair -keystore android.keystore -alias nour -keyalg RSA -keysize 2048 -validity 10000 -storepass "$PASS" -keypass "$PASS" -dname "CN=Nour, O=Nour, C=FR"
+          cat > twa-manifest.json <<EOF
+          {
+            "packageId": "com.salmadz.nour.arabe",
+            "host": "algeriachleffrence12-rgb.github.io",
+            "name": "Nour - Apprendre l'arabe",
+            "launcherName": "Nour",
+            "display": "standalone",
+            "themeColor": "#ff6b6b",
+            "navigationColor": "#ff6b6b",
+            "backgroundColor": "#fff7ec",
+            "enableNotifications": false,
+            "startUrl": "/Nour/index.html",
+            "iconUrl": "https://algeriachleffrence12-rgb.github.io/Nour/icon-512%20(1).png",
+            "maskableIconUrl": "https://algeriachleffrence12-rgb.github.io/Nour/maskable-512%20(1).png",
+            "appVersion": "$GITHUB_RUN_NUMBER",
+            "appVersionName": "$GITHUB_RUN_NUMBER",
+            "appVersionCode": $GITHUB_RUN_NUMBER,
+            "signingKey": { "path": "./android.keystore", "alias": "nour" },
+            "splashScreenFadeOutDuration": 300,
+            "enableSiteSettingsShortcut": false,
+            "isChromeOSOnly": false,
+            "orientation": "portrait",
+            "fallbackType": "customtabs",
+            "webManifestUrl": "https://algeriachleffrence12-rgb.github.io/Nour/manifest.webmanifest",
+            "fullScopeUrl": "https://algeriachleffrence12-rgb.github.io/Nour/",
+            "minSdkVersion": 21,
+            "features": { "playBilling": { "enabled": true } },
+            "alphaDependencies": { "enabled": true },
+            "generatorApp": "bubblewrap-cli"
+          }
+          EOF
+          bubblewrap update --skipVersionUpgrade
+          export BUBBLEWRAP_KEYSTORE_PASSWORD="$PASS"
+          export BUBBLEWRAP_KEY_PASSWORD="$PASS"
+          bubblewrap build --skipPwaValidation
+          {
+            echo "Keystore password: $PASS"
+            echo "Alias: nour"
+            keytool -list -v -keystore android.keystore -storepass "$PASS" | grep -E "SHA256|SHA1"
+          } > KEYSTORE-INFO.txt
+          cat KEYSTORE-INFO.txt | grep -v password
+          ls -l
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nour-aab
+          path: |
+            out/app-release-bundle.aab
+            out/android.keystore
+            out/KEYSTORE-INFO.txt
